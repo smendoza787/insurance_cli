@@ -2,7 +2,7 @@ using System;
 
 public class Cli
 {
-  public static string name;
+  public static Customer primary_customer;
 
   public static void printLogo()
   {                                                                                                  
@@ -50,7 +50,7 @@ public class Cli
     Console.WriteLine();
 
     Console.Write("What is your first name?: ");
-    Customer primary_customer = new Customer(Console.ReadLine());
+    primary_customer = new Customer(Console.ReadLine());
     Console.WriteLine();
 
     Console.WriteLine("Awesome, nice to meet you {0}!", capitalize(primary_customer.First_Name));
@@ -59,13 +59,39 @@ public class Cli
     Console.Write("What is your last name?: ");
     primary_customer.Last_Name = Console.ReadLine();
     Console.WriteLine();
+  }
 
+  public static void getPolicy()
+  {
     Console.WriteLine("Okay {0} {1}, what kind of policy are you looking to create?", capitalize(primary_customer.First_Name), capitalize(primary_customer.Last_Name));
+    Console.WriteLine();
+
+    Console.WriteLine("1. Auto");
+    Console.WriteLine("2. Home");
+    Console.WriteLine("3. Life");
+    Console.WriteLine();
+
+    Console.Write("> ");
+    string policyType = Console.ReadLine();
+
+    if (policyType.ToUpper() == "AUTO" || policyType == "1")
+    {
+      AutoPolicy ap = new AutoPolicy();
+    }
+    else if (policyType.ToUpper() == "HOME" || policyType == "2")
+    {
+      HomePolicy hp = new HomePolicy();
+    }
+    else if (policyType.ToUpper() == "LIFE" || policyType == "3")
+    {
+      LifePolicy lp = new LifePolicy();
+    }
   }
 
   public static void Main()
   {
     printLogo();
     welcome();
+    getPolicy();
   }
 }
